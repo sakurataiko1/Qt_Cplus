@@ -1,0 +1,8 @@
+Environmental:
+
+OS:windows10
+
+・visualStutdio2015
+・Qt5.15.2
+・QtCreator4.14
+
