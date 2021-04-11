@@ -1,0 +1,73 @@
+
+03 では 元のopenglと同じように　頂点を自分で指定して図形表示させたい。
+
+サンプル hellogl2 では正常図形　（厚みあり）
+    glwidget.cpp　関数：paintGL() glDrawArrays(GL_TRIANGLES, 0, m_logo.vertexCount());
+　　
+
+自分で作成したもの (松岡さんプログラムから流用では厚みなし (頂点指定がまずい？）
+    glwidget.cpp　関数：paintGL() glDrawArrays(GL_QUADS,0, vertexList.size()/4);
+
+    //QVector<GLfloat> vertexList;
+    //vertexList.clear();
+    ////vertexList << x; vertexList << y; vertexList << z;
+    //vertexList << 0; vertexList << 0; vertexList << 0;  //頂点A
+    //vertexList << 1; vertexList << 0; vertexList << 0;  //頂点B
+    //vertexList << 1; vertexList << 1; vertexList << 0;  //頂点C
+    //vertexList << 0; vertexList << 1; vertexList << 0;  //頂点D
+    //vertexList << 0; vertexList << 0; vertexList << 1;  //頂点E
+    //vertexList << 1; vertexList << 0; vertexList << 1;  //頂点F
+    //vertexList << 1; vertexList << 1; vertexList << 1;  //頂点G
+    //vertexList << 0; vertexList << 1; vertexList << 1;  //頂点H
+    //glDrawArrays(GL_QUADS,0, vertexList.size()/4); 　//厚みが出ない
+    //glDrawArrays(GL_TRIANGLES, 0, vertexList.size()/4); //厚みがでない
+
+
+サンプリングの書き方で書いてみる? 　もしくは中国のサンプル。
+
+
+■　2_3DRendering
+     // Front Verticies
+#define VERTEX_FTR Vertex( QVector3D( 0.5f,  0.5f,  0.5f), QVector3D( 1.0f, 0.0f, 0.0f ) )
+#define VERTEX_FTL Vertex( QVector3D(-0.5f,  0.5f,  0.5f), QVector3D( 0.0f, 1.0f, 0.0f ) )
+#define VERTEX_FBL Vertex( QVector3D(-0.5f, -0.5f,  0.5f), QVector3D( 0.0f, 0.0f, 1.0f ) )
+#define VERTEX_FBR Vertex( QVector3D( 0.5f, -0.5f,  0.5f), QVector3D( 0.0f, 0.0f, 0.0f ) )
+
+// Back Verticies
+#define VERTEX_BTR Vertex( QVector3D( 0.5f,  0.5f, -0.5f), QVector3D( 1.0f, 1.0f, 0.0f ) )
+#define VERTEX_BTL Vertex( QVector3D(-0.5f,  0.5f, -0.5f), QVector3D( 0.0f, 1.0f, 1.0f ) )
+#define VERTEX_BBL Vertex( QVector3D(-0.5f, -0.5f, -0.5f), QVector3D( 1.0f, 0.0f, 1.0f ) )
+#define VERTEX_BBR Vertex( QVector3D( 0.5f, -0.5f, -0.5f), QVector3D( 1.0f, 1.0f, 1.0f ) )
+
+// Create a colored cube
+static const Vertex sg_vertexes[] = {
+  // Face 1 (Front)
+    VERTEX_FTR, VERTEX_FTL, VERTEX_FBL,
+    VERTEX_FBL, VERTEX_FBR, VERTEX_FTR,
+  // Face 2 (Back)
+    VERTEX_BBR, VERTEX_BTL, VERTEX_BTR,
+    VERTEX_BTL, VERTEX_BBR, VERTEX_BBL,
+  // Face 3 (Top)
+    VERTEX_FTR, VERTEX_BTR, VERTEX_BTL,
+    VERTEX_BTL, VERTEX_FTL, VERTEX_FTR,
+  // Face 4 (Bottom)
+    VERTEX_FBR, VERTEX_FBL, VERTEX_BBL,
+    VERTEX_BBL, VERTEX_BBR, VERTEX_FBR,
+  // Face 5 (Left)
+    VERTEX_FBL, VERTEX_FTL, VERTEX_BTL,
+    VERTEX_FBL, VERTEX_BTL, VERTEX_BBL,
+  // Face 6 (Right)
+    VERTEX_FTR, VERTEX_FBR, VERTEX_BBR,
+    VERTEX_BBR, VERTEX_BTR, VERTEX_FTR
+};
+
+
+#undef VERTEX_BBR
+#undef VERTEX_BBL
+#undef VERTEX_BTL
+#undef VERTEX_BTR
+
+#undef VERTEX_FBR
+#undef VERTEX_FBL
+#undef VERTEX_FTL
+#undef VERTEX_FTR

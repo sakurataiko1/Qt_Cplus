@@ -1,1 +1,15 @@
-test
+■作業としては、流用と、.uiの格上げ先変更だけで動作した。
+
+①サンプルプログラム　MyOpenGL_my01NonShader をまるごと流用　
+
+②サンプルプログラム　hellogl2　の下記 4ファイルを　①直下にコピーして、Qtで読み込み
+　　glwidget.cpp / h
+　  logo.cpp / h
+
+③今回のプログラム　MyOpenGL_my02Shader の　.uiファイル変更。
+
+　　.ui フォーム編集画面を開いて
+　　　QWidgetフォームの格上げ設定先を　②でコピーしてきた　glwidget.h に変更する。
+
+
+    
